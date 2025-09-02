@@ -18,7 +18,7 @@
 inline float GetAge(uint64 t) { return float(time(NULL) - t) / float(DAY); }
 
 TicketMgr::TicketMgr() : _feedbackSystemStatus(false), _gmTicketSystemStatus(false),
-_lastGmTicketId(0), _lastBugId(0), _lastSuggestId(0), _lastChange(0),
+_lastGmTicketId(0), _lastSurveyId(0), _lastBugId(0), _lastSuggestId(0), _lastChange(0),
 _openGmTicketCount(0), _openBugTicketCount(0), _openSuggestTicketCount(0) { }
 
 TicketMgr::~TicketMgr()
@@ -160,6 +160,19 @@ void TicketMgr::LoadSuggestTickets()
     } while (result->NextRow());
 
     SF_LOG_INFO("server.loading", ">> Loaded %u ticket suggests in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
+}
+
+void TicketMgr::LoadSurveys()
+{
+    // we don't actually load anything into memory here as there's no reason to
+    _lastSurveyId = 0;
+
+    uint32 oldMSTime = getMSTime();
+    if (QueryResult result = CharacterDatabase.Query("SELECT MAX(surveyId) FROM gm_surveys"))
+        _lastSurveyId = (*result)[0].GetUInt32();
+
+    SF_LOG_INFO("server.loading", ">> Loaded GM Survey count from database in %u ms", GetMSTimeDiffToNow(oldMSTime));
+
 }
 
 void TicketMgr::AddTicket(GmTicket* ticket)

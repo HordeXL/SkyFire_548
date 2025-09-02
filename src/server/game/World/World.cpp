@@ -1798,6 +1798,9 @@ void World::SetInitialWorldSettings()
     SF_LOG_INFO("server.loading", "Loading GM tickets...");
     sTicketMgr->LoadGmTickets();
 
+    SF_LOG_INFO("server.loading", "Loading GM surveys...");
+    sTicketMgr->LoadSurveys();
+
     SF_LOG_INFO("server.loading", "Loading Support bugs tickets...");
     sTicketMgr->LoadBugTickets();
 

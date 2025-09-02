@@ -74,6 +74,7 @@ public:
     void LoadGmTickets();
     void LoadBugTickets();
     void LoadSuggestTickets();
+    void LoadSurveys();
 
     void AddTicket(GmTicket* ticket);
     void AddTicket(BugTicket* ticket);
@@ -95,6 +96,7 @@ public:
     uint32 GenerateGmTicketId() { return ++_lastGmTicketId; }
     uint32 GenerateBugId() { return ++_lastBugId; }
     uint32 GenerateSuggestId() { return ++_lastSuggestId; }
+    uint32 GetNextSurveyID() { return ++_lastSurveyId; }
 
 private:
     bool _feedbackSystemStatus;
@@ -103,6 +105,7 @@ private:
     BugTicketList _bugTicketList;
     SuggestTicketList _suggestTicketList;
     uint32 _lastGmTicketId;
+    uint32 _lastSurveyId;
     uint32 _lastBugId;
     uint32 _lastSuggestId;
     uint64 _lastChange;

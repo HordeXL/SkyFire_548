@@ -347,7 +347,9 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_DEL_GM_SUGGEST, "DELETE FROM ticket_suggest WHERE ticketId = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_ALL_GM_SUGGESTS, "TRUNCATE TABLE ticket_suggest", CONNECTION_ASYNC);
 
-    // lag report
+    // GM Survey/subsurvey/lag report
+    PrepareStatement(CHAR_INS_GM_SURVEY, "INSERT INTO gm_surveys (guid, surveyId, mainSurvey, overallComment, createTime) VALUES (?, ?, ?, ?, UNIX_TIMESTAMP(NOW()))", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_INS_GM_SUBSURVEY, "INSERT INTO gm_subsurveys (surveyId, subsurveyId, rank, comment) VALUES (?, ?, ?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_INS_LAG_REPORT, "INSERT INTO lag_reports (guid, lagType, mapId, posX, posY, posZ, latency, createTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
 
     //  For loading and deleting expired auctions at startup
