@@ -266,14 +266,13 @@ void WorldSession::HandleReportLag(WorldPacket& recvData)
 
 void WorldSession::HandleGMResponseResolve(WorldPacket& /*recvPacket*/)
 {
-    // empty packet
     if (GmTicket* ticket = sTicketMgr->GetGmTicketByPlayerGuid(GetPlayer()->GetGUID()))
     {
         uint8 getSurvey = 0;
         if (float(rand_chance()) < sWorld->GetFloatConfig(WorldFloatConfigs::CONFIG_CHANCE_OF_GM_SURVEY))
             getSurvey = 1;
 
-        WorldPacket data(SMSG_GM_TICKET_RESOLVE_RESPONSE, 1);
+        WorldPacket data(SMSG_GM_TICKET_RESOLVE_RESPONSE);
         data.WriteBit(getSurvey);
         data.FlushBits();
         SendPacket(&data);
