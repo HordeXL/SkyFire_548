@@ -475,7 +475,7 @@ void WorldSession::HandleBattlePetWildRequest(WorldPacket& recvData)
     petBattleRequest.Enemy = wildBattlePet;
 
 
-    WorldPacket data(SMSG_BATTLE_PET_LOCATION_FINALIZE, 100);
+    WorldPacket data(SMSG_PET_BATTLE_FINALIZE_LOCATION, 100);
     data << petBattleRequest.Origin.x;
     data << petBattleRequest.Origin.y;
 
@@ -498,8 +498,8 @@ void WorldSession::HandleBattlePetWildRequest(WorldPacket& recvData)
     _player->SendDirectMessage(&data);
 
 
-    //SMSG_BATTLE_PET_UPDATE_INIT starts the pet battle itself.
-    WorldPacket data2(SMSG_BATTLE_PET_UPDATE_INIT, 1000);
+    //SMSG_PET_BATTLE_INITIAL_UPDATE starts the pet battle itself.
+    WorldPacket data2(SMSG_PET_BATTLE_INITIAL_UPDATE, 1000);
 
     bool hasWatingForFrontPetsMaxSecs = true;
     bool hasPvPMaxRoundTime = true;
