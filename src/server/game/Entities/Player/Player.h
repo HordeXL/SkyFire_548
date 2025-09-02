@@ -1667,7 +1667,7 @@ public:
     {
         return m_trade;
     }
-    void TradeCancel(bool sendback);
+    void TradeCancel(bool sendback, TradeStatus status = TRADE_STATUS_CANCELLED);
 
     void UpdateEnchantTime(uint32 time);
     void UpdateSoulboundTradeItems();

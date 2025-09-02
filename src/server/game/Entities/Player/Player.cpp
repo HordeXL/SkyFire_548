@@ -6863,7 +6863,7 @@ bool Player::UpdatePosition(float x, float y, float z, float orientation, bool t
         SetGroupUpdateFlag(GROUP_UPDATE_FLAG_POSITION);
 
     if (GetTrader() && !IsWithinDistInMap(GetTrader(), INTERACTION_DISTANCE))
-        GetSession()->SendCancelTrade();
+        GetSession()->SendCancelTrade(TRADE_STATUS_CANCELLED);
 
     CheckAreaExploreAndOutdoor();
 
@@ -14025,7 +14025,7 @@ bool Player::IsTwoHandUsed() const
     return mainItem && mainItem->GetTemplate()->InventoryType == INVTYPE_2HWEAPON && !CanTitanGrip();
 }
 
-void Player::TradeCancel(bool sendback)
+void Player::TradeCancel(bool sendback, TradeStatus status /*= TRADE_STATUS_CANCELLED*/)
 {
     if (m_trade)
     {
@@ -14033,9 +14033,9 @@ void Player::TradeCancel(bool sendback)
 
         // send yellow "Trade canceled" message to both traders
         if (sendback)
-            GetSession()->SendCancelTrade();
+            GetSession()->SendCancelTrade(status);
 
-        trader->GetSession()->SendCancelTrade();
+        trader->GetSession()->SendCancelTrade(status);
 
         // cleanup
         delete m_trade;

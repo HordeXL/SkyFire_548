@@ -400,7 +400,7 @@ public:
     void HandleUnacceptTradeOpcode(WorldPacket& recvPacket);
     void SendTradeStatus(TradeStatus status);
     void SendUpdateTrade(bool trader_data = true);
-    void SendCancelTrade();
+    void SendCancelTrade(TradeStatus status);
 
     // Totem
     void SendTotemCreated(ObjectGuid TotemGUID, uint32 Duration, uint32 SpellID, uint8 Slot);
